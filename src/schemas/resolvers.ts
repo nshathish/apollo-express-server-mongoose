@@ -7,7 +7,22 @@ const resolvers = {
       return await Customer.find();
     },
     async getOrders(): Promise<IOrder[]> {
-      return await Order.find().populate('Customer');
+      const orders = await Order.aggregate([{
+        $lookup: {
+          from: 'customers',
+          localField: 'customerId',
+          foreignField: '_id',
+          as: 'customer',
+        },
+      }]);
+      return orders.map(o => ({
+        id: o._id,
+        total: o.total,
+        customer: {
+          id: o.customer[0]._id,
+          ...o.customer[0],
+        },
+      }));
     },
   },
   Mutation: {

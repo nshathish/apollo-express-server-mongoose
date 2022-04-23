@@ -3,12 +3,12 @@ import { Customer } from './customer';
 
 export interface IOrder {
   total: number;
-  customerId: any;
+  customer: any;
 }
 
 const orderSchema = new Schema<IOrder>({
   total: { type: Number, required: true },
-  customerId: {
+  customer: {
     type: Types.ObjectId,
     ref: Customer,
     required: true,

@@ -2,14 +2,14 @@ import { gql } from 'apollo-server-express';
 
 const typeDefs = gql`
   type Customer {
-    id: ID!
-    name: String!
-    email: String!
+    id: ID
+    name: String
+    email: String
   }
   
   type Order {
-    id: ID!
-    total: Float!
+    id: ID
+    total: Float
     customer: Customer
   }
   
